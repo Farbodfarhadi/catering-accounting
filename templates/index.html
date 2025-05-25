@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catering Accounting Dashboard</title>
+    <style>
+        body { font-family: sans-serif; max-width: 700px; margin: auto; padding: 2rem; }
+        h1 { text-align: center; }
+        form { margin-bottom: 2rem; }
+        input, select { padding: 0.5rem; margin: 0.5rem; width: calc(100% - 1rem); }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+        .income { color: green; }
+        .expense { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Catering Accounting</h1>
+    <h2>Balance: {{ balance }} CAD</h2>
+    <form method="POST" action="/add">
+        <input type="text" name="description" placeholder="Description" required>
+        <input type="number" step="0.01" name="amount" placeholder="Amount" required>
+        <input type="date" name="date">
+        <select name="type">
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+        </select>
+        <button type="submit">Add Transaction</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in transactions %}
+            <tr>
+                <td>{{ t.date }}</td>
+                <td>{{ t.description }}</td>
+                <td class="{{ t.type }}">{{ t.type }}</td>
+                <td class="{{ t.type }}">{{ t.amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
